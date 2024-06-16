@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\DcComic;
 use Illuminate\Database\Seeder;
+
 
 class DcComicsTableSeeder extends Seeder
 {
@@ -13,6 +14,15 @@ class DcComicsTableSeeder extends Seeder
     public function run(): void
     {
         $data = config('dc_comics');
-        foreach
+        foreach ($data as $item) {
+            $newComics = new DcComic();
+            $newComics->title = $item['title'];
+            $newComics->description = $item['description'];
+            $newComics->thumb = $item['thumb'];
+            $newComics->price = $item['price'];
+            $newComics->sale_date = $item['sale_date'];
+            $newComics->save();
+
+        }
     }
 }
