@@ -27,12 +27,22 @@
                         <td>{{ $item->price }}</td>
                         <td>{{ $item->sale_date }}</td>
                         <td>
-                            <div>
-                                <a href="{{route('dc_comics.show', ['dc_comic' => $item->id])}}">
+                            <div class="d-flex flex-column gap-2">
+                                <a href="{{ route('dc_comics.show', ['dc_comic' => $item->id]) }}">
                                     <button class="btn btn-success">Dettagli</button>
                                 </a>
-                
+                                <a href="{{ route('dc_comics.edit', ['dc_comic' => $item->id]) }}">
+                                    <button class="btn btn-primary">Modifica</button>
+                                </a>
+                                {{-- Form per cancellare elemento --}}
+                                <form action="{{ route('dc_comics.destroy', ['dc_comic' => $item->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger" type="submit">Cancella</button>
+                                </form>
                             </div>
+
+
                         </td>
                     </tr>
                 @endforeach

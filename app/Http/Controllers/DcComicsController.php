@@ -59,22 +59,34 @@ class DcComicsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $dc_comic = DcComic::findOrFail($id);
+        return view('dc_comics.edit', compact('dc_comic'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id) //request contiene i dati del form che è gia stato modificato.
     {
-        //
+        // Da request ci arrivano i dati nuovi da inserire nel record
+        $data = $request->all();
+        
+        //prendiamo il vecchio fumetto e poi aggiorniamolo
+        $oldComic = DcComic::findOrFail($id);
+
+        $oldComic->update($data); //questo update funziona grazie al fillable nel model
+
+        return redirect()->route('dc_comics.show', ['dc_comic' => $id]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        $dc_comic = DcComic::findOrFail($id);
+        $dc_comic->delete();
+        return redirect()->route('dc_comics.index');
+        
     }
 }
