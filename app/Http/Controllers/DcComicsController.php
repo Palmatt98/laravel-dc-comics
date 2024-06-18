@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDcComicRequest;
+use App\Http\Requests\UpdateDcComicRequest;
 use App\Models\DcComic;
-use Error;
-use Illuminate\Http\Request;
 
 class DcComicsController extends Controller
 {
@@ -75,7 +74,7 @@ class DcComicsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id) //request contiene i dati del form che è gia stato modificato.
+    public function update(UpdateDcComicRequest $request, int $id) //request contiene i dati del form che è gia stato modificato.
     {
         // Da request ci arrivano i dati nuovi da inserire nel record
         $data = $request->all();
