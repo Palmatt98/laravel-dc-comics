@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDcComicRequest;
 use App\Models\DcComic;
 use Error;
 use Illuminate\Http\Request;
@@ -28,8 +29,16 @@ class DcComicsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreDcComicRequest $request)
     {
+        //controllo che i dati sono corretti e ootengo un array associativo
+        $request->validate([ 
+            'title' => ['required', 'min:3'], // Corretta separazione delle regole
+            'price' => ['required'],
+            'sale_date' => ['required'],
+            'description' => ['min:10'],
+        ]);
+
         $data = $request->all();
         $newComic = new DcComic();
         $newComic->title = $data["title"];
@@ -87,6 +96,6 @@ class DcComicsController extends Controller
         $dc_comic = DcComic::findOrFail($id);
         $dc_comic->delete();
         return redirect()->route('dc_comics.index');
-        
+
     }
 }
