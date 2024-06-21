@@ -92,6 +92,7 @@ class DcComicsController extends Controller
      */
     public function destroy(int $id)
     {
+        //SELECT * FROM dc_comics WHERE dc_comics.id = $id
         $dc_comic = DcComic::findOrFail($id);
         $dc_comic->delete();
         return redirect()->route('dc_comics.index');
